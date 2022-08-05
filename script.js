@@ -32,7 +32,7 @@ let div;
 
 let init = function () {
   sizePrompt = 0;
-  gridSize = 0;
+  gridSize = 0; // Not entirely necessary, added just to be sure that variables are reset
 };
 
 btnPrompt.addEventListener("click", function () {
@@ -40,18 +40,21 @@ btnPrompt.addEventListener("click", function () {
   removeAllChildNodes(mainDiv);
   sizePrompt = prompt("How large would you like the grid?");
   gridSize = sizePrompt * sizePrompt;
-  console.log(sizePrompt);
-  console.log(gridSize);
+  // console.log(sizePrompt);
+  // console.log(gridSize);
 
   if (isNaN(sizePrompt)) {
+    // Checks is sizePrompt is a number
     alert("Error, need a number!");
   } else if (sizePrompt > 50) {
+    // Makes sure that the grid cannot go above 50x50
     sizePrompt = 50;
     alert("Grid size must be 50 or less");
   }
   // SAME LOOP AND CODE BUT FOR GRID
   else
     for (let i = 0; i < `${gridSize}`; i++) {
+      // For loops creates our Grid size
       div = document.createElement("div");
 
       div.style.width = "50px";
@@ -59,7 +62,7 @@ btnPrompt.addEventListener("click", function () {
       div.classList.add("newDivs");
       // div.style.backgroundColor = "red";
       mainDiv.style.cssText += `grid-template-columns: repeat(${sizePrompt}, 50px [col-start])`;
-      console.log(sizePrompt);
+      // console.log(sizePrompt);
       mainDiv.appendChild(div);
     }
 
@@ -82,9 +85,11 @@ btnPrompt.addEventListener("click", function () {
   const item = document.querySelectorAll(".newDivs");
 
   for (let i = 0; i < item.length; i++) {
+    let opacity = 1;
     item[i].addEventListener("mouseover", function () {
       randColor();
       item[i].style.cssText += `background-color:${colour}`;
+      item[i].style.cssText += `opacity: ${(opacity -= 0.1)}`;
     });
   }
 });
